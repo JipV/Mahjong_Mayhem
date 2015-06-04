@@ -44,3 +44,9 @@ app.directive('tile', function() {
 		}
 	}
 });
+app.directive('opengame', function(){
+  return {
+    restrict: 'E',
+    templateUrl: './views/directives/openGameTemplate.html',
+  }
+})

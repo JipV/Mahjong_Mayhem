@@ -8,3 +8,7 @@
 	-moz-box-shadow:    -6px 9px 5px 0px rgba(50, 50, 50, 0.75);
 	box-shadow:         -6px 9px 5px 0px rgba(50, 50, 50, 0.75);
 }
+
+.tabBarButton {
+	cursor: hand; 
+}

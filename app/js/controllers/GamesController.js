@@ -7,6 +7,8 @@ module.exports = function($scope, gamesFactory) {
 		id: "jip--pie@avans.nl"
 	};
 
+	this.activeTab = "open"
+
 	var game1 = {
 		_id: "5541fc5b1872631100678bb7",
 		createdBy: {
@@ -82,15 +84,14 @@ module.exports = function($scope, gamesFactory) {
 			"minPlayers": 2,
 			"maxPlayers": 32
 		};
-		
-		
-		
 	};
 
 	this.addPlayer = function(game) {
 		console.log("Hallo :D")
 		game.players.push(this.user);
 	};
+
+	this.top
 	
 	//var game = new Game(gamesFactory);
 	//game.getTiles();
