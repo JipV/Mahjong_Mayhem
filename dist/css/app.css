@@ -8,3 +8,9 @@
 	-moz-box-shadow:    -6px 9px 5px 0px rgba(50, 50, 50, 0.75);
 	box-shadow:         -6px 9px 5px 0px rgba(50, 50, 50, 0.75);
 }
+
+.test {
+    outline: none;
+    border-color: #013ADF;
+    box-shadow: 0 0 50px #013ADF;
+}

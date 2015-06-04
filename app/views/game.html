@@ -1,5 +1,5 @@
 <div ng-controller="GameController as gameController">
 	<div id="gameboard">
-		<tile ng-repeat="tile in gameController.game.tiles"></tile>
+		<tile ng-repeat="tile in gameController.game.tiles" ng-click="gameController.selectTile(tile)"></tile>
 	</div>
 </div>
