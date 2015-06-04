@@ -8,7 +8,6 @@ var urlFactory = require("./factories/urlFactory");
 var gamesFactory = require("./factories/gamesFactory");
 var gamesController = require("./controllers/GamesController");
 var gameController = require("./controllers/GameController");
-var game = require("./models/game");
 
 app.factory("urlFactory", urlFactory);
 app.factory("gamesFactory", gamesFactory);
@@ -41,7 +40,7 @@ app.directive('tile', function() {
 		},
 		link: function(scope, element, attrs) {
       element.bind('click', function() {
-          element.children().addClass('test');
+          element.children().addClass('isSelected');
       });
 		}
 	}

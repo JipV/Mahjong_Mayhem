@@ -8,7 +8,7 @@ module.exports = function(gamesFactory) {
 	this.getTiles = function() {
 		this.gamesFactory.getTiles("5541fc5b1872631100678bb4", function(tiles){
 			self.tiles = tiles;
-			console.log(self.matchesLeft());
+			//console.log(self.matchesLeft());
 		});
     };
 	
