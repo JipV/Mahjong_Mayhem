@@ -1,4 +1,4 @@
-function Game(gamesFactory) {
+module.exports = function(gamesFactory) {
 	this.gamesFactory = gamesFactory;
 	this.tiles;
 	this.freeTiles = [];

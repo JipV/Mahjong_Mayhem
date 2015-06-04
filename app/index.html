@@ -1,26 +1,17 @@
 <html lang="en" ng-app="Mahjong_Mayhem">
 	<head>
-		<title>Games</title>
+		<title>Mahjong Mayhem! :D</title>
 		<!-- The css is copied into dist/css/app.css by the copy task -->
 		<link rel="stylesheet" href="css/app.css"/>
-		
+		<link rel="stylesheet" href="css/sprite.css"/>
+		<link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css"/>
+		<link rel="stylesheet" href="lib/bootstrap/css/bootstrap-theme.min.css"/>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<script src="lib/bootstrap/js/bootstrap.min.js"></script>
 	</head>
-	<body ng-controller="GamesController as gamesController">
+	<body>
+		<div ui-view></div>
 		
-		<div ng-show="game.state == 'open'" ng-repeat="game in gamesController.games | orderBy: '-createdOn'">
-			<span>{{game.gameTemplate._id}}</span>
-			<br />
-			<span>Players:</span>
-			<div ng-repeat="player in game.players">
-				<span>- {{player.name}}</span>
-			</div>
-			<button ng-show="game.state == 'open' && gamesController.hasPlayer(game, gamesController.user) == false" ng-click="gamesController.addPlayer(game)">Join game</button>
-			<br />
-		</div>
-		
-		<br />
-		<input type="text" ng-model="name"/>
-		<button ng-click="gamesController.addGame(name)">Add game</button>
 		<script src="js/models/game.js"></script>
 	    <script src="js/app.js"></script>
 	</body>

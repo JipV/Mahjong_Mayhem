@@ -83,13 +83,15 @@ module.exports = function($scope, gamesFactory) {
 			"maxPlayers": 32
 		};
 		
-		this.addPlayer = function(game) {
-			game.players.push(this.user);
-		};
+		
 		
 	};
+
+	this.addPlayer = function(game) {
+		console.log("Hallo :D")
+		game.players.push(this.user);
+	};
 	
-	var game = new Game(gamesFactory);
-	game.getTiles();
-	console.log(game);
+	//var game = new Game(gamesFactory);
+	//game.getTiles();
 }
