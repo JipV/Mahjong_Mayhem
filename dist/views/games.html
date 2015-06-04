@@ -4,14 +4,20 @@
 			<div class="well">
 				<h1>Games</h1>
 				<ul class="nav nav-pills">
-				  <li role="presentation" class="{{gamesController.activeTab == 'open' ? 'active tabBarButton': 'tabBarButton'}}"><a ng-click="gamesController.activeTab = 'open'">Open</a></li>
-				  <li role="presentation" class="{{gamesController.activeTab == 'playing' ? 'active tabBarButton': 'tabBarButton'}}"><a ng-click="gamesController.activeTab = 'playing'">Playing</a></li>
-				  <li role="presentation" class="{{gamesController.activeTab == 'mygames' ? 'active tabBarButton': 'tabBarButton'}}"><a ng-click="gamesController.activeTab = 'mygames'">My games</a></li>
+				  <li role="presentation" class="{{gamesController.activeTab == 'open' ? 'active tabBarButton': 'tabBarButton'}}">
+				  	<a ng-click="gamesController.goToOpenGames()">Open</a>
+				  </li>
+				  <li role="presentation" class="{{gamesController.activeTab == 'playing' ? 'active tabBarButton': 'tabBarButton'}}">
+				  	<a ng-click="gamesController.goToPlayingGames()">Playing</a>
+				  </li>
+				  <li role="presentation" class="{{gamesController.activeTab == 'owned' ? 'active tabBarButton': 'tabBarButton'}}">
+				  	<a ng-click="gamesController.goToOwnedGames()">My games</a>
+				  </li>
 				</ul>
 				<ul class="list-group">
-				  <li class="list-group-item" ng-repeat="game in gamesController.games | orderBy: '-createdOn'" >
-				  	<opengame ng-show="gamesController.activeTab == 'open'"></opengame>
-				  </li>
+				  <!-- <li class="list-group-item" ng-repeat="game in gamesController.games | orderBy: '-createdOn'" >
+				  </li> -->
+				  <div ui-view></div>
 				</ul>
 			</div>
 		</div>

@@ -23,7 +23,24 @@ app.config(function($stateProvider, $urlRouterProvider) {
     .state('home', {
       url: "/",
       templateUrl: "./views/games.html",
-      controller: gamesController
+      controller: gamesController,
+    })
+    .state('home.opengames', {
+      templateUrl: "./views/directives/opengames.html",
+      controller: function($scope){
+        $scope.items = ["A", "List", "Of", "Items"];
+      }
+    })
+    .state('home.playinggames', {
+      url: "playinggames",
+      templateUrl: "./views/directives/playinggames.html"
+    })
+    .state('home.ownedgames', {
+      url: "ownedgames",
+      templateUrl: "./views/directives/ownedgames.html",
+      controller: function($scope){
+        $scope.things = ["A", "Set", "Of", "Things"];
+      }
     })
     .state('game', {
       url: "/game",
@@ -44,9 +61,9 @@ app.directive('tile', function() {
 		}
 	}
 });
-app.directive('opengame', function(){
+app.directive('game', function() {
   return {
     restrict: 'E',
-    templateUrl: './views/directives/openGameTemplate.html',
+    templateUrl: './views/directives/game.html',
   }
-})
+});

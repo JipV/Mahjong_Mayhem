@@ -1,4 +1,4 @@
-module.exports = function($scope, gamesFactory) {
+module.exports = function($scope, $state, gamesFactory) {
 
 	this.user = {
 		_id: "jip--pie@avans.nl",
@@ -64,7 +64,7 @@ module.exports = function($scope, gamesFactory) {
 		}],
 		maxPlayers: 32,
 		minPlayers: 2,
-		state: "playing",
+		state: "open",
 	id: "5541fc5b1872631100678bb4"}
 		
 	this.games = [game1, game2];
@@ -91,8 +91,37 @@ module.exports = function($scope, gamesFactory) {
 		game.players.push(this.user);
 	};
 
-	this.top
+	this.isOwnedGame = function(game){
+		if(this.user._id == game.createdBy._id){
+			return true;
+		} else {
+			var found = false;
+			for(var i = 0; i < game.players.length; i++) {
+			    if (game.players[i]._id == this.user._id) {
+			        found = true;
+			        break;
+			    }
+			}
+			return found;
+		}
+	}
+
+	this.goToOwnedGames = function(){
+		this.activeTab = 'owned'
+		$state.go('home.ownedgames');
+	}
+
+	this.goToOpenGames = function(){
+		this.activeTab = 'open'
+		$state.go('home.opengames');
+	}
+
+	this.goToPlayingGames = function(){
+		this.activeTab = 'playing'
+		$state.go('home.playinggames')
+	}
 	
+	$state.go('home.opengames');
 	//var game = new Game(gamesFactory);
 	//game.getTiles();
 }
