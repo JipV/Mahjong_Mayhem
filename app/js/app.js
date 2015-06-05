@@ -23,13 +23,21 @@ app.config(function($stateProvider, $urlRouterProvider) {
     .state('home', {
       url: "/",
       templateUrl: "./views/games.html",
-      controller: gamesController,
+      controller: "GamesController as gamesController",
+      resolve: {
+        retreivedGames: function(gamesFactory, $q){
+          var deferred = $q.defer();
+
+          gamesFactory.getGames(function(games){
+            deferred.resolve(games);
+          })
+
+          return deferred.promise;
+        }
+      }
     })
     .state('home.opengames', {
       templateUrl: "./views/directives/opengames.html",
-      controller: function($scope){
-        $scope.items = ["A", "List", "Of", "Items"];
-      }
     })
     .state('home.playinggames', {
       url: "playinggames",
@@ -38,9 +46,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
     .state('home.ownedgames', {
       url: "ownedgames",
       templateUrl: "./views/directives/ownedgames.html",
-      controller: function($scope){
-        $scope.things = ["A", "Set", "Of", "Things"];
-      }
     })
     .state('game', {
       url: "/game",

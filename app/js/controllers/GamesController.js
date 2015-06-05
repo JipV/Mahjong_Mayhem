@@ -1,4 +1,4 @@
-module.exports = function($scope, $state, gamesFactory) {
+module.exports = function($scope, $state, retreivedGames) {
 
 	this.user = {
 		_id: "jip--pie@avans.nl",
@@ -66,8 +66,8 @@ module.exports = function($scope, $state, gamesFactory) {
 		minPlayers: 2,
 		state: "open",
 	id: "5541fc5b1872631100678bb4"}
-		
-	this.games = [game1, game2];
+	console.log(retreivedGames);
+	this.games = retreivedGames
 
 	this.hasPlayer = function(game, user){
 		for(var x = 0; x < game.players.length; x++){

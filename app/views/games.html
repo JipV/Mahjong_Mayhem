@@ -1,32 +1,30 @@
-<div ng-controller="GamesController as gamesController">
-		<div class="col-md-6">
-			<ul class="nav nav-tabs">
-			<div class="well">
-				<h1>Games</h1>
-				<ul class="nav nav-pills">
-				  <li role="presentation" class="{{gamesController.activeTab == 'open' ? 'active tabBarButton': 'tabBarButton'}}">
-				  	<a ng-click="gamesController.goToOpenGames()">Open</a>
-				  </li>
-				  <li role="presentation" class="{{gamesController.activeTab == 'playing' ? 'active tabBarButton': 'tabBarButton'}}">
-				  	<a ng-click="gamesController.goToPlayingGames()">Playing</a>
-				  </li>
-				  <li role="presentation" class="{{gamesController.activeTab == 'owned' ? 'active tabBarButton': 'tabBarButton'}}">
-				  	<a ng-click="gamesController.goToOwnedGames()">My games</a>
-				  </li>
-				</ul>
-				<ul class="list-group">
-				  <!-- <li class="list-group-item" ng-repeat="game in gamesController.games | orderBy: '-createdOn'" >
-				  </li> -->
-				  <div ui-view></div>
-				</ul>
-			</div>
+<div>
+	<div class="col-md-6">
+		<ul class="nav nav-tabs">
+		<div class="well">
+			<h1>Games</h1>
+			<ul class="nav nav-pills">
+				<li role="presentation" class="{{gamesController.activeTab == 'open' ? 'active tabBarButton': 'tabBarButton'}}">
+				  <a ng-click="gamesController.goToOpenGames()">Open</a>
+				</li>
+				<li role="presentation" class="{{gamesController.activeTab == 'playing' ? 'active tabBarButton': 'tabBarButton'}}">
+				  <a ng-click="gamesController.goToPlayingGames()">Playing</a>
+				</li>
+				<li role="presentation" class="{{gamesController.activeTab == 'owned' ? 'active tabBarButton': 'tabBarButton'}}">
+				  <a ng-click="gamesController.goToOwnedGames()">My games</a>
+				</li>
+			</ul>
+			<ul class="list-group">
+				<div ui-view></div>
+			</ul>
 		</div>
+	</div>
 		
-		<div class="col-md-6">
-			<div class="well">
-				<h1>Create game</h1>
-				<input type="text" ng-model="name"  class="form-control"/>
-				<button ng-click="gamesController.addGame(name)" class="btn btn-danger">Create game</button>
-			</div>
+	<div class="col-md-6">
+		<div class="well">
+			<h1>Create game</h1>
+			<input type="text" ng-model="name"  class="form-control"/>
+			<button ng-click="gamesController.addGame(name)" class="btn btn-danger">Create game</button>
 		</div>
+	</div>
 </div>
