@@ -1,10 +1,10 @@
 module.exports = function($scope, $state, retreivedGames) {
 
 	this.user = {
-		_id: "jip--pie@avans.nl",
-		name: "Jip Verhoeven",
+		_id: "ebrandm@avans.nl",
+		name: "Erik Brandsma",
 		__v: 0,
-		id: "jip--pie@avans.nl"
+		id: "ebrandsm@avans.nl"
 	};
 
 	this.activeTab = "open"
@@ -119,6 +119,11 @@ module.exports = function($scope, $state, retreivedGames) {
 	this.goToPlayingGames = function(){
 		this.activeTab = 'playing'
 		$state.go('home.playinggames')
+	}
+
+	this.changeSelect = function(gameType){
+		console.log("HALLO");
+		$("#selectGameType").html(gameType);
 	}
 	
 	$state.go('home.opengames');
