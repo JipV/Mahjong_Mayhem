@@ -33,7 +33,7 @@ module.exports = function($scope, $state, retreivedGames) {
 			__v: 0,
 			id: "mmaa.schuurmans@avans.nl"
 		}],
-		maxPlayers: 8,
+		maxPlayers: 2,
 		minPlayers: 2,
 		state: "open",
 		id: "5541fc5b1872631100678bb7"
@@ -62,12 +62,12 @@ module.exports = function($scope, $state, retreivedGames) {
 			__v: 0,
 			id: "mmaa.schuurmans@avans.nl"
 		}],
-		maxPlayers: 32,
+		maxPlayers: 2,
 		minPlayers: 2,
 		state: "open",
 	id: "5541fc5b1872631100678bb4"}
-	console.log(retreivedGames);
 	this.games = retreivedGames
+	//this.games = [game1, game2];
 
 	this.hasPlayer = function(game, user){
 		for(var x = 0; x < game.players.length; x++){

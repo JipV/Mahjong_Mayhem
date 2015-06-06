@@ -1,17 +1,17 @@
 <div>
 	<div class="col-md-6">
-		<ul class="nav nav-tabs">
+		<ul class="nav">
 		<div class="well">
-			<h1>Games</h1>
+			<h1 class="pacifico">Games</h1>
 			<ul class="nav nav-pills">
 				<li role="presentation" class="{{gamesController.activeTab == 'open' ? 'active tabBarButton': 'tabBarButton'}}">
-				  <a ng-click="gamesController.goToOpenGames()">Open</a>
+				  <a class="pacifico bigText" ng-click="gamesController.goToOpenGames()">Open</a>
 				</li>
 				<li role="presentation" class="{{gamesController.activeTab == 'playing' ? 'active tabBarButton': 'tabBarButton'}}">
-				  <a ng-click="gamesController.goToPlayingGames()">Playing</a>
+				  <a class="pacifico bigText" ng-click="gamesController.goToPlayingGames()">Playing</a>
 				</li>
 				<li role="presentation" class="{{gamesController.activeTab == 'owned' ? 'active tabBarButton': 'tabBarButton'}}">
-				  <a ng-click="gamesController.goToOwnedGames()">My games</a>
+				  <a class="pacifico bigText" ng-click="gamesController.goToOwnedGames()">My games</a>
 				</li>
 			</ul>
 			<ul class="list-group">
@@ -22,7 +22,7 @@
 		
 	<div class="col-md-6">
 		<div class="well">
-			<h1>Create game</h1>
+			<h1 class="pacifico">Create game</h1>
 			<input type="text" ng-model="name"  class="form-control"/>
 			<button ng-click="gamesController.addGame(name)" class="btn btn-danger">Create game</button>
 		</div>

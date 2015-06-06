@@ -4,31 +4,54 @@ require('angular-ui-router/build/angular-ui-router');
 // Create your app
 var app = angular.module("Mahjong_Mayhem", ['ui.router']);
 
+//Auth
+var HttpInjector      = require('./factories/httpInjector');
+app.factory('HttpInjector', HttpInjector);
+
+//Factories
 var urlFactory = require("./factories/urlFactory");
 var gamesFactory = require("./factories/gamesFactory");
-var gamesController = require("./controllers/GamesController");
-var gameController = require("./controllers/GameController");
-var game = require("./models/game");
+var loginFactory = require("./factories/loginFactory");
 
 app.factory("urlFactory", urlFactory);
 app.factory("gamesFactory", gamesFactory);
+app.factory("loginFactory", loginFactory);
+
+//Controllers
+var gamesController = require("./controllers/GamesController");
+var gameController = require("./controllers/GameController");
+var loginController = require("./controllers/LoginController");
+var callbackController = require("./controllers/CallbackController");
+
 app.controller("GamesController", gamesController);
 app.controller("GameController", gameController);
+app.controller("loginController", loginController);
+app.controller("callbackController", callbackController)
 
-app.config(function($stateProvider, $urlRouterProvider) {
+//Models
+var game = require("./models/game");
+
+app.config(function($stateProvider, $httpProvider, $urlRouterProvider) {
 
   $urlRouterProvider.otherwise("/");
 
   $stateProvider
-    .state('home', {
+    .state('login', {
       url: "/",
+      controller: loginController,
+      templateUrl:"./views/login.html"
+    })
+    .state('home', {
+      url: "/games",
       templateUrl: "./views/games.html",
       controller: "GamesController as gamesController",
       resolve: {
         retreivedGames: function(gamesFactory, $q){
+          setProgressBar("Loading games", 30);
           var deferred = $q.defer();
 
-          gamesFactory.getGames(function(games){
+          gamesFactory.getGames(20, setProgressBar, function(games){
+            setProgressBar("Loading games", 100);
             deferred.resolve(games);
           })
 
@@ -40,11 +63,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
       templateUrl: "./views/directives/opengames.html",
     })
     .state('home.playinggames', {
-      url: "playinggames",
+      url: "/playing",
       templateUrl: "./views/directives/playinggames.html"
     })
     .state('home.ownedgames', {
-      url: "ownedgames",
+      url: "/owned",
       templateUrl: "./views/directives/ownedgames.html",
     })
     .state('game', {
@@ -52,7 +75,16 @@ app.config(function($stateProvider, $urlRouterProvider) {
       templateUrl: "./views/game.html",
       controller: gameController
     })
+    .state('authcallback', {
+      url: "/auth/authcallback",
+      controller: callbackController
+    });
 });
+
+app.config(['$httpProvider', function ($httpProvider)
+{
+  $httpProvider.interceptors.push('HttpInjector');
+}]);
 
 app.directive('tile', function() {
 	return {
@@ -66,9 +98,15 @@ app.directive('tile', function() {
 		}
 	}
 });
+
 app.directive('game', function() {
   return {
     restrict: 'E',
     templateUrl: './views/directives/game.html',
   }
 });
+
+function setProgressBar(task, number){
+  $("#loadingTask").html(task)
+  $('.progress-bar').css('width', number+'%').attr('aria-valuenow', number);
+}
