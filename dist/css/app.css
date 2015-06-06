@@ -1,3 +1,7 @@
+#gameboard {
+	background-color: yellow;
+}
+
 .tile { 
 	position: absolute;
 	left: 0px;
@@ -13,4 +17,10 @@
     outline: none;
     border-color: blue;
     box-shadow: 0 0 50px blue;
+}
+
+.noMatch {
+    outline: none;
+    border-color: red;
+    box-shadow: 0 0 50px red;
 }

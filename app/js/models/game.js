@@ -13,13 +13,18 @@ module.exports = function(gamesFactory) {
     };
 	
 	this.checkMove = function(tile, tile2) {
-		var tileFree = this.checkTileFreedom(tile);
-		var tile2Free = this.checkTileFreedom(tile2);
-		if (tileFree && tile2Free) {
-			if (tile.name == tile2.name && tile.suit == tile2.suit) {
-				return true
-			}
-		}
+		//var tileFree = this.checkTileFreedom(tile);
+		//var tile2Free = this.checkTileFreedom(tile2);
+		//if (tileFree && tile2Free) {
+			//if (tile.tile.name == tile2.tile.name && tile.tile.suit == tile2.tile.suit) {
+				//return true
+			//}
+		//}
+		if ((tile.tile.machtesWholeSuit && tile.tile.suit == tile2.tile.suit) ||
+			(tile2.tile.machtesWholeSuit && tile.tile.suit == tile2.tile.suit) ||
+			(tile.tile.name == tile2.tile.name && tile.tile.suit == tile2.tile.suit)) {
+			return true;
+		} 
 		return false
 	};
 	
@@ -60,6 +65,12 @@ module.exports = function(gamesFactory) {
 			}
 		}
 		return free;
+	}
+
+	this.addMatch = function(idTile1, idTile2){
+		this.gamesFactory.addMatch("5541fc5b1872631100678bb4", idTile1, idTile2, function(tiles){
+			console.log("Tegels zijn nu gematched.");
+		});
 	}
 	
 	this.matchesLeft = function(){

@@ -36,12 +36,8 @@ app.directive('tile', function() {
 		restrict: 'E',
 		templateUrl: './views/directives/tileTemplate.html',
 		controller: function($scope) {
-			
 		},
 		link: function(scope, element, attrs) {
-      element.bind('click', function() {
-          element.children().addClass('isSelected');
-      });
 		}
 	}
 });
