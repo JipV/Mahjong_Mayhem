@@ -1,4 +1,6 @@
-module.exports = function($scope, $state, retreivedGames) {
+module.exports = function($scope, $state, $timeout, retreivedGames) {
+
+	this.gameType = "Shanghai";
 
 	this.user = {
 		_id: "ebrandm@avans.nl",
@@ -8,6 +10,7 @@ module.exports = function($scope, $state, retreivedGames) {
 	};
 
 	this.activeTab = "open"
+	var stop;
 
 	var game1 = {
 		_id: "5541fc5b1872631100678bb7",
@@ -78,16 +81,41 @@ module.exports = function($scope, $state, retreivedGames) {
 		return false
 	}	
 	
-	this.addGame = function(name) {
-		var newGame ={
-			"templateName": "Ox",
-			"minPlayers": 2,
-			"maxPlayers": 32
-		};
+	this.createGame = function() {
+		var minPlayers = $("#minPlayers").val();
+		var maxPlayers = $("#maxPlayers").val();
+		if(minPlayers != "" && maxPlayers != "" && minPlayers > 0 && minPlayers < 32 && maxPlayers > 0 && maxPlayers < 33 && maxPlayers > minPlayers){
+			console.log("Success!");
+		} else {
+			$("#alertToRemove").remove()
+			$("#createGame").append('<div id="alertToRemove" class="alert alert-danger myAlert" role="alert">De game voldoet niet aan een van deze eisen: </br> minPlayers != undefined && maxPlayers != undefined && minPlayers > 0 && minPlayers < 32 && maxPlayers > 0 && maxPlayers < 33 && maxPlayers > minPlayers</div>')
+			$(".myAlert").dequeue();
+			$(".myAlert").css("opacity", 0);
+			$(".myAlert").clearQueue();
+			$(".myAlert").stop(true, true);
+			if(angular.isDefined(stop)){
+				$timeout.cancel(stop);
+            	stop = undefined;
+			}
+			$( ".myAlert" ).animate({
+			    opacity: 1,
+			}, 1000, function() {
+				console.log("done1");
+			    stop = $timeout(function(){
+			    	console.log("setting interval!");
+					$( ".myAlert" ).animate({
+						opacity: 0,
+					}, 4000, function() {
+						$("#alertToRemove").remove()
+					});
+				}, 4000);
+			});
+			console.log("Fail!");
+		}
+		console.log("Gametype: " + this.gameType + " minPlayers: " + minPlayers + " maxPlayers: " + maxPlayers);
 	};
 
 	this.addPlayer = function(game) {
-		console.log("Hallo :D")
 		game.players.push(this.user);
 	};
 
@@ -122,8 +150,8 @@ module.exports = function($scope, $state, retreivedGames) {
 	}
 
 	this.changeSelect = function(gameType){
-		console.log("HALLO");
-		$("#selectGameType").html(gameType);
+		this.gameType = gameType;
+		$("#selectGameType").html(this.gameType);
 	}
 	
 	$state.go('home.opengames');

@@ -24,17 +24,18 @@
 
 <p>
 	<span class="bigText">Minimum players</span>
-	<input style="margin-left:10px;" type="number" name="quantity" min="1" max="32">
+	<input id="minPlayers" style="margin-left:10px; width:126px;" value="2" type="number">
 </p>
 
 <!-- MaxPlayers -->
 <p>
 	<span class="bigText">Maximum players</span>
-	<input style="margin-left:5px;" type="number" name="quantity" min="1" max="32">
+	<input id="maxPlayers" style="margin-left:5px; width:126px;" value="32" type="number">
 </p>
 
-<!-- button -->
 <p>
-	<button ng-click="gamesController.addGame()" class="btn btn-danger">Create game</button>
+	<button ng-click="gamesController.createGame()" class="btn btn-danger">Create game</button>
 </p>
+
+
 
