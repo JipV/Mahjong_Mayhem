@@ -1,4 +1,4 @@
-module.exports = function($scope, gamesFactory) {
+module.exports = function($scope, $state, retreivedGames) {
 
 	this.user = {
 		_id: "jip--pie@avans.nl",
@@ -6,6 +6,8 @@ module.exports = function($scope, gamesFactory) {
 		__v: 0,
 		id: "jip--pie@avans.nl"
 	};
+
+	this.activeTab = "open"
 
 	var game1 = {
 		_id: "5541fc5b1872631100678bb7",
@@ -31,7 +33,7 @@ module.exports = function($scope, gamesFactory) {
 			__v: 0,
 			id: "mmaa.schuurmans@avans.nl"
 		}],
-		maxPlayers: 8,
+		maxPlayers: 2,
 		minPlayers: 2,
 		state: "open",
 		id: "5541fc5b1872631100678bb7"
@@ -60,12 +62,12 @@ module.exports = function($scope, gamesFactory) {
 			__v: 0,
 			id: "mmaa.schuurmans@avans.nl"
 		}],
-		maxPlayers: 32,
+		maxPlayers: 2,
 		minPlayers: 2,
-		state: "playing",
+		state: "open",
 	id: "5541fc5b1872631100678bb4"}
-		
-	this.games = [game1, game2];
+	this.games = retreivedGames
+	//this.games = [game1, game2];
 
 	this.hasPlayer = function(game, user){
 		for(var x = 0; x < game.players.length; x++){
@@ -82,16 +84,44 @@ module.exports = function($scope, gamesFactory) {
 			"minPlayers": 2,
 			"maxPlayers": 32
 		};
-		
-		
-		
 	};
 
 	this.addPlayer = function(game) {
 		console.log("Hallo :D")
 		game.players.push(this.user);
 	};
+
+	this.isOwnedGame = function(game){
+		if(this.user._id == game.createdBy._id){
+			return true;
+		} else {
+			var found = false;
+			for(var i = 0; i < game.players.length; i++) {
+			    if (game.players[i]._id == this.user._id) {
+			        found = true;
+			        break;
+			    }
+			}
+			return found;
+		}
+	}
+
+	this.goToOwnedGames = function(){
+		this.activeTab = 'owned'
+		$state.go('home.ownedgames');
+	}
+
+	this.goToOpenGames = function(){
+		this.activeTab = 'open'
+		$state.go('home.opengames');
+	}
+
+	this.goToPlayingGames = function(){
+		this.activeTab = 'playing'
+		$state.go('home.playinggames')
+	}
 	
+	$state.go('home.opengames');
 	//var game = new Game(gamesFactory);
 	//game.getTiles();
 }
