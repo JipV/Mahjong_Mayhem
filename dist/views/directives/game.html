@@ -1,14 +1,14 @@
 <h3>
 	<p>
-		<span class="label label-info">{{game.gameTemplate._id}}</span> 
+		<span class="label label-info">{{ game.gameTemplate._id }}</span> 
 		<span ng-show="game.state == 'open'" class="label label-success">Open</span>
 		<span ng-show="game.state == 'playing'" class="label label-info">Playing</span>
 		<span ng-show="game.maxPlayers == game.players.length" class="label label-danger">Full</span>
 	</p>
 	<p><span class="label label-primary">
-		<text ng-repeat="player in game.players"> {{player.name}} 
+		<text ng-repeat="player in game.players"> {{ player.name }} 
 			{{ $index != game.players.length - 1 && game.players.length > 1 ? "-" : "" }}
 		</text></span></p>
-	<p><button ng-show="game.state == 'open' && gamesController.hasPlayer(game, gamesController.user) == false
-		&& game.maxPlayers != game.players.length" ng-click="gamesController.addPlayer(game)" class="btn btn-danger">Join game</button></p>
+	<p><button ng-show="game.state == 'open' && !gamesController.hasPlayer(game, gamesController.user)
+		&& game.maxPlayers != game.players.length && game.players.length < game.maxPlayers" ng-click="gamesController.addPlayer(game)" class="btn btn-danger">Join game</button></p>
 </h3>
