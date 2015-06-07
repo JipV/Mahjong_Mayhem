@@ -65,15 +65,15 @@ app.config(function($stateProvider, $httpProvider, $urlRouterProvider) {
       }
     })
     .state('home.opengames', {
-      templateUrl: "./views/directives/opengames.html",
+      templateUrl: "./views/directives/gamesView/opengames.html",
     })
     .state('home.playinggames', {
       url: "/playing",
-      templateUrl: "./views/directives/playinggames.html"
+      templateUrl: "./views/directives/gamesView/playinggames.html"
     })
     .state('home.ownedgames', {
       url: "/owned",
-      templateUrl: "./views/directives/ownedgames.html",
+      templateUrl: "./views/directives/gamesView/ownedgames.html",
     })
     .state('game', {
       url: "/game",
@@ -106,6 +106,13 @@ app.directive('game', function() {
   return {
     restrict: 'E',
     templateUrl: './views/directives/game.html',
+  }
+});
+
+app.directive('creategame', function() {
+  return {
+    restrict: 'E',
+    templateUrl: './views/directives/gamesView/creategame.html',
   }
 });
 

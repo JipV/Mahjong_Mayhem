@@ -1,3 +1,3 @@
-module.exports = function(loginFactory) {
+module.exports = function() {
 	
 }

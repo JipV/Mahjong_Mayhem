@@ -13,7 +13,6 @@
 	box-shadow:         -6px 9px 5px 0px rgba(50, 50, 50, 0.75);
 }
 
-<<<<<<< HEAD
 .isSelected {
     outline: none;
     border-color: blue;
@@ -24,7 +23,8 @@
     outline: none;
     border-color: red;
     box-shadow: 0 0 50px red;
-=======
+}
+
 .tabBarButton {
 	cursor: hand; 
 }
@@ -57,11 +57,39 @@
 	margin:0 0 0 -25%;
 }
 
+#selectGameType {
+	margin-left:68px;
+	width:100px !important;
+}
+
 .pacifico {
 	font-family: Pacifico;
 }
 
+.float-left {
+	float: left;
+}
+
 .bigText {
 	font-size:20px;
->>>>>>> master
+}
+
+.myAlert {
+	opacity: 0;
+}
+
+#progressBottomLabel {
+	position: absolute;
+	left:50%;
+	top:40%;
+	width:50%;
+	margin:40px 0 0 -25%;
+	text-align: right;
+	font-family: Pacifico;
+	font-color: #CDCDCD;
+	font-size:20px;
+}
+
+@media only screen and (max-width : 852px) {
+	#progressBottomLabel { font-size: 13px; }
 }
