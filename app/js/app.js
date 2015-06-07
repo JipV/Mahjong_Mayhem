@@ -82,6 +82,14 @@ app.config(function($stateProvider, $httpProvider, $urlRouterProvider) {
       templateUrl: "./views/game.html",
       controller: gameController
     })
+    .state('game.gameboard', {
+      url: "/gameboard",
+      templateUrl: "./views/gameboard.html"
+    })
+    .state('game.gamePlayers', {
+      url: "/gamePlayers",
+      templateUrl: "./views/gamePlayers.html"
+    })
     .state('authcallback', {
       url: "/auth/authcallback",
       controller: callbackController
