@@ -1,76 +1,23 @@
-module.exports = function($scope, $state, $timeout, gamesFactory, retreivedGames) {
-
-	this.gameType = "Shanghai";
+module.exports = function($scope, $state, $timeout, gamesFactory, gameService, retreivedGames) {
 
 	this.user = {
-		_id: "ebrandm@avans.nl",
-		name: "Erik Brandsma",
-		__v: 0,
-		id: "ebrandsm@avans.nl"
+		_id: window.localStorage.getItem("email"),
+		//name: "Erik Brandsma",
+		id: window.localStorage.getItem("email")
 	};
 
 	this.activeTab = "open"
+
+	this.gameType = "Shanghai";
+
+	this.games = retreivedGames;
+
 	var stop;
 
-	var game1 = {
-		_id: "5541fc5b1872631100678bb7",
-		createdBy: {
-			_id: "mmaa.schuurmans@avans.nl",
-			name: "Martijn Schuurmans",
-			__v: 0,
-			id: "mmaa.schuurmans@avans.nl"
-		},
-		createdOn: "2015-05-30T09:56:43.516Z",
-		startedOn: "2015-05-30T09:57:43.516Z",
-		endedOn: "2015-05-30T09:58:43.516Z",
-		gameTemplate: {
-			_id: "Monkey",
-			__v: 0,
-			id: "Monkey"
-		},
-		__v: 0,
-		players: 
-		[{
-			_id: "mmaa.schuurmans@avans.nl",
-			name: "Martijn Schuurmans",
-			__v: 0,
-			id: "mmaa.schuurmans@avans.nl"
-		}],
-		maxPlayers: 2,
-		minPlayers: 2,
-		state: "open",
-		id: "5541fc5b1872631100678bb7"
+	this.showGame = function(game) {
+		gameService.setGame(game);
+		$state.go('game');
 	}
-				
-	var game2 = {_id: "5541fc5b1872631100678bb4",
-		createdBy: {
-			_id: "mmaa.schuurmans@avans.nl",
-			name: "Martijn Schuurmans",
-			__v: 0,
-			id: "mmaa.schuurmans@avans.nl"
-		},
-		createdOn: "2015-04-30T09:56:43.516Z",
-		startedOn: "2015-04-30T09:57:43.516Z",
-		endedOn: "2015-04-30T09:58:43.516Z",
-		gameTemplate: {
-			_id: "Dragon",
-			__v: 0,
-			id: "Dragon"
-		},
-		__v: 0,
-		players: 
-		[{
-			_id: "mmaa.schuurmans@avans.nl",
-			name: "Martijn Schuurmans",
-			__v: 0,
-			id: "mmaa.schuurmans@avans.nl"
-		}],
-		maxPlayers: 2,
-		minPlayers: 2,
-		state: "open",
-	id: "5541fc5b1872631100678bb4"}
-	this.games = retreivedGames
-	//this.games = [game1, game2];
 
 	this.hasPlayer = function(game, user){
 		for(var x = 0; x < game.players.length; x++){
@@ -87,12 +34,8 @@ module.exports = function($scope, $state, $timeout, gamesFactory, retreivedGames
 		if(minPlayers != "" && maxPlayers != "" && minPlayers > 1 && minPlayers < 33 && maxPlayers > 0 && maxPlayers < 33 && maxPlayers > minPlayers){
 			//Implementeer success (Alle gegevens zijn goed )
 			/*gamesFactory.createGame(this.gameType, minPlayers, maxPlayers, function(){
-				$("#tabs").tabs({ active: "#myGames" });
+				this.goToOwnedGames();
 			});*/
-			//$("#tabs").tabs({ active: "#myGames" });
-			//$("#myGames").tab('show');
-			//angular.element("#myGames").triggerHandler("click");
-			this.goToOwnedGames();
 		} else {
 			$("#alertToRemove").remove()
 			$("#createGame").append('<div id="alertToRemove" class="alert alert-danger myAlert" role="alert">De game voldoet niet aan een van deze eisen: </br> minPlayers != undefined && maxPlayers != undefined && minPlayers > 0 && minPlayers < 32 && maxPlayers > 0 && maxPlayers < 33 && maxPlayers > minPlayers</div>')
@@ -158,6 +101,4 @@ module.exports = function($scope, $state, $timeout, gamesFactory, retreivedGames
 	}
 	
 	$state.go('home.opengames');
-	//var game = new Game(gamesFactory);
-	//game.getTiles();
 }

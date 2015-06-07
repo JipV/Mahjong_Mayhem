@@ -33,7 +33,7 @@ module.exports = function($http, urlFactory) {
     };*/
 
     gamesFactory.getTiles = function (id, callBack) {
-        $http.get(urlFactory + urlBase + '/' + id + '/tiles').
+        return $http.get(urlFactory + urlBase + '/' + id + '/tiles').
 		success(function(data, status, headers, config) {
 			callBack(data);
 		}).

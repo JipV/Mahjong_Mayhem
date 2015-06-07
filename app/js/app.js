@@ -10,17 +10,19 @@ app.factory('HttpInjector', HttpInjector);
 
 //Factories
 var urlFactory = require("./factories/urlFactory");
+var loginFactory = require("./factories/loginFactory");
 var gamesFactory = require("./factories/gamesFactory");
+
+var gameService = require("./services/gameService");
 
 var gamesController = require("./controllers/GamesController");
 var gameController = require("./controllers/GameController");
 
-var loginFactory = require("./factories/loginFactory");
-
-
 app.factory("urlFactory", urlFactory);
 app.factory("gamesFactory", gamesFactory);
 app.factory("loginFactory", loginFactory);
+
+app.service("gameService", gameService);
 
 //Controllers
 var gamesController = require("./controllers/GamesController");

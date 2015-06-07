@@ -1,4 +1,4 @@
-module.exports = function(gamesFactory) {
+module.exports = function(gamesFactory, idGame) {
 	this.gamesFactory = gamesFactory;
 	this.tiles;
 	this.freeTiles = [];
@@ -6,7 +6,7 @@ module.exports = function(gamesFactory) {
 	var self = this
 	
 	this.getTiles = function() {
-		this.gamesFactory.getTiles("5541fc5b1872631100678bb4", function(tiles){
+		this.gamesFactory.getTiles(idGame, function(tiles){
 			self.tiles = tiles;
 			//console.log(self.matchesLeft());
 		});
@@ -68,7 +68,7 @@ module.exports = function(gamesFactory) {
 	}
 
 	this.addMatch = function(idTile1, idTile2){
-		this.gamesFactory.addMatch("5541fc5b1872631100678bb4", idTile1, idTile2, function(tiles){
+		this.gamesFactory.addMatch(idGame, idTile1, idTile2, function(tiles){
 			console.log("Tegels zijn nu gematched.");
 		});
 	}
