@@ -7,7 +7,16 @@ module.exports = function($http, urlFactory) {
         setProgressBar("Loading games", 50);
         return $http.get(urlFactory + urlBase + "?pageSize=" + numberOfGames).
         success(function(data, status, headers, config){
-        	callBack(data)
+        	callBack(data);
+        }).error(function(data, status, headers, config){
+        	console.log(data);
+        });
+    };
+
+    gamesFactory.createGame = function (templateName, minPlayers, maxPlayers, callBack) {
+        return $http.post(urlFactory + urlBase, {templateName: templateName,  minPlayers: minPlayers, maxPlayers: maxPlayers}).
+        success(function(data, status, headers, config){
+        	callBack(data);
         }).error(function(data, status, headers, config){
         	console.log(data);
         });

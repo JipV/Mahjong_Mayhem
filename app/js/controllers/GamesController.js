@@ -1,4 +1,4 @@
-module.exports = function($scope, $state, $timeout, retreivedGames) {
+module.exports = function($scope, $state, $timeout, gamesFactory, retreivedGames) {
 
 	this.gameType = "Shanghai";
 
@@ -84,8 +84,15 @@ module.exports = function($scope, $state, $timeout, retreivedGames) {
 	this.createGame = function() {
 		var minPlayers = $("#minPlayers").val();
 		var maxPlayers = $("#maxPlayers").val();
-		if(minPlayers != "" && maxPlayers != "" && minPlayers > 0 && minPlayers < 32 && maxPlayers > 0 && maxPlayers < 33 && maxPlayers > minPlayers){
+		if(minPlayers != "" && maxPlayers != "" && minPlayers > 1 && minPlayers < 33 && maxPlayers > 0 && maxPlayers < 33 && maxPlayers > minPlayers){
 			//Implementeer success (Alle gegevens zijn goed )
+			/*gamesFactory.createGame(this.gameType, minPlayers, maxPlayers, function(){
+				$("#tabs").tabs({ active: "#myGames" });
+			});*/
+			//$("#tabs").tabs({ active: "#myGames" });
+			//$("#myGames").tab('show');
+			//angular.element("#myGames").triggerHandler("click");
+			this.goToOwnedGames();
 		} else {
 			$("#alertToRemove").remove()
 			$("#createGame").append('<div id="alertToRemove" class="alert alert-danger myAlert" role="alert">De game voldoet niet aan een van deze eisen: </br> minPlayers != undefined && maxPlayers != undefined && minPlayers > 0 && minPlayers < 32 && maxPlayers > 0 && maxPlayers < 33 && maxPlayers > minPlayers</div>')
@@ -97,7 +104,7 @@ module.exports = function($scope, $state, $timeout, retreivedGames) {
 				$timeout.cancel(stop);
             	stop = undefined;
 			}
-			$( ".myAlert" ).animate({
+			$(".myAlert").animate({
 			    opacity: 1,
 			}, 1000, function() {
 			    stop = $timeout(function(){

@@ -11,7 +11,7 @@
 				  <a class="pacifico bigText" ng-click="gamesController.goToPlayingGames()">Playing</a>
 				</li>
 				<li role="presentation" class="{{gamesController.activeTab == 'owned' ? 'active tabBarButton': 'tabBarButton'}}">
-				  <a class="pacifico bigText" ng-click="gamesController.goToOwnedGames()">My games</a>
+				  <a class="pacifico bigText" id="myGames" ng-click="gamesController.goToOwnedGames()">My games</a>
 				</li>
 			</ul>
 			<ul class="list-group">
