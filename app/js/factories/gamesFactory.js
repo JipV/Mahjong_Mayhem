@@ -13,10 +13,16 @@ module.exports = function($http, urlFactory) {
         });
     };
 
-    gamesFactory.createGame = function (templateName, minPlayers, maxPlayers, callBack) {
+    gamesFactory.timeout = function(these){
+        window.setTimeout(function(){
+            these.goToOwnedGames("somehti");
+        }, 500)
+    }
+
+    gamesFactory.createGame = function (templateName, minPlayers, maxPlayers, gc) {
         return $http.post(urlFactory + urlBase, {templateName: templateName,  minPlayers: minPlayers, maxPlayers: maxPlayers}).
         success(function(data, status, headers, config){
-        	callBack(data);
+        	gc.receiveGame(data);
         }).error(function(data, status, headers, config){
         	console.log(data);
         });

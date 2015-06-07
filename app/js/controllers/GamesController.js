@@ -33,9 +33,8 @@ module.exports = function($scope, $state, $timeout, gamesFactory, gameService, r
 		var maxPlayers = $("#maxPlayers").val();
 		if(minPlayers != "" && maxPlayers != "" && minPlayers > 1 && minPlayers < 33 && maxPlayers > 0 && maxPlayers < 33 && maxPlayers > minPlayers){
 			//Implementeer success (Alle gegevens zijn goed )
-			/*gamesFactory.createGame(this.gameType, minPlayers, maxPlayers, function(){
-				this.goToOwnedGames();
-			});*/
+			gamesFactory.createGame(this.gameType, minPlayers, maxPlayers, this);
+			
 		} else {
 			$("#alertToRemove").remove()
 			$("#createGame").append('<div id="alertToRemove" class="alert alert-danger myAlert" role="alert">De game voldoet niet aan een van deze eisen: </br> minPlayers != undefined && maxPlayers != undefined && minPlayers > 0 && minPlayers < 32 && maxPlayers > 0 && maxPlayers < 33 && maxPlayers > minPlayers</div>')
@@ -78,6 +77,12 @@ module.exports = function($scope, $state, $timeout, gamesFactory, gameService, r
 			}
 			return found;
 		}
+	}
+
+	this.receiveGame = function(newGame){
+		console.log(newGame);
+		this.games.push(newGame);
+		this.goToOwnedGames();
 	}
 
 	this.goToOwnedGames = function(){
