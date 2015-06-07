@@ -85,7 +85,7 @@ module.exports = function($scope, $state, $timeout, retreivedGames) {
 		var minPlayers = $("#minPlayers").val();
 		var maxPlayers = $("#maxPlayers").val();
 		if(minPlayers != "" && maxPlayers != "" && minPlayers > 0 && minPlayers < 32 && maxPlayers > 0 && maxPlayers < 33 && maxPlayers > minPlayers){
-			console.log("Success!");
+			//Implementeer success (Alle gegevens zijn goed )
 		} else {
 			$("#alertToRemove").remove()
 			$("#createGame").append('<div id="alertToRemove" class="alert alert-danger myAlert" role="alert">De game voldoet niet aan een van deze eisen: </br> minPlayers != undefined && maxPlayers != undefined && minPlayers > 0 && minPlayers < 32 && maxPlayers > 0 && maxPlayers < 33 && maxPlayers > minPlayers</div>')
@@ -100,9 +100,7 @@ module.exports = function($scope, $state, $timeout, retreivedGames) {
 			$( ".myAlert" ).animate({
 			    opacity: 1,
 			}, 1000, function() {
-				console.log("done1");
 			    stop = $timeout(function(){
-			    	console.log("setting interval!");
 					$( ".myAlert" ).animate({
 						opacity: 0,
 					}, 4000, function() {
@@ -110,9 +108,7 @@ module.exports = function($scope, $state, $timeout, retreivedGames) {
 					});
 				}, 4000);
 			});
-			console.log("Fail!");
 		}
-		console.log("Gametype: " + this.gameType + " minPlayers: " + minPlayers + " maxPlayers: " + maxPlayers);
 	};
 
 	this.addPlayer = function(game) {
