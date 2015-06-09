@@ -87,7 +87,7 @@ module.exports = function($scope, $state, $timeout, gamesFactory, gameService, r
 		   }
 			swal.close();
 			window.setTimeout(function(){
-				swal({ title: "Game joined!", text: "You have successfully joined the game!'", type: "success", confirmButtonText: "Cool!"});
+				swal({ title: game.createdBy.name + "'s game joined!", text: "You have successfully joined " +  game.createdBy.name + "'s game!'", type: "success", confirmButtonText: "Cool!"});
 			}, 1000)
 		});
 	};
