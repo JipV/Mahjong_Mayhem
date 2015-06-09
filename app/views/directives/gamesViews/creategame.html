@@ -33,7 +33,9 @@
 </p>
 
 <p>
-	<button ng-click="gamesController.createGame()" class="btn btn-danger">Create game</button>
+	<button ng-disabled="gamesController.creatingGame" ng-click="gamesController.createGame()" class="btn btn-danger">Create game</button>
+	<div id="addProgressBarHere" class="progressBarDiv">
+	</div>
 </p>
 
 

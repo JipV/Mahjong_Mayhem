@@ -10,5 +10,5 @@
 			{{ $index != game.players.length - 1 && game.players.length > 1 ? "-" : "" }}
 		</text></span></p>
 	<p><button ng-show="game.state == 'open' && !gamesController.hasPlayer(game, gamesController.user)
-		&& game.maxPlayers != game.players.length && game.players.length < game.maxPlayers" ng-click="gamesController.addPlayer(game)" class="btn btn-danger">Join game</button></p>
+		&& game.maxPlayers != game.players.length && game.players.length < game.maxPlayers" ng-click="gamesController.joinGame(game)" class="btn btn-danger">Join game</button></p>
 </h3>

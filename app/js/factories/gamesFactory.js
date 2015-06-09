@@ -13,20 +13,29 @@ module.exports = function($http, urlFactory) {
         });
     };
 
-    gamesFactory.timeout = function(these){
+    gamesFactory.timeout = function(callBack){
         window.setTimeout(function(){
-            these.goToOwnedGames("somehti");
-        }, 500)
+            callBack()
+        }, 5000)
     }
 
-    gamesFactory.createGame = function (templateName, minPlayers, maxPlayers, gc) {
+    gamesFactory.createGame = function (templateName, minPlayers, maxPlayers, callBack) {
         return $http.post(urlFactory + urlBase, {templateName: templateName,  minPlayers: minPlayers, maxPlayers: maxPlayers}).
         success(function(data, status, headers, config){
-        	gc.receiveGame(data);
+        	callBack(data);
         }).error(function(data, status, headers, config){
         	console.log(data);
         });
     };
+
+    gamesFactory.joinGame = function(game_id, callBack){
+        return $http.post(urlFactory + urlBase + "/" + game_id + "/Players").
+        success(function(data, status, headers, config){
+            callBack(data);
+        }).error(function(data, status, headers, config){
+            console.log(data);
+        });
+    }
 	
 	/*gamesFactory.getTiles = function (id, callBack) {
         $http.get(urlFactory + urlBase + '/' + id + '/tiles').

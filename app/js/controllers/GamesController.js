@@ -2,7 +2,6 @@ module.exports = function($scope, $state, $timeout, gamesFactory, gameService, r
 
 	this.user = {
 		_id: window.localStorage.getItem("email"),
-		//name: "Erik Brandsma",
 		id: window.localStorage.getItem("email")
 	};
 
@@ -11,7 +10,10 @@ module.exports = function($scope, $state, $timeout, gamesFactory, gameService, r
 	this.gameType = "Shanghai";
 
 	this.games = retreivedGames;
+	this.creatingGame = false
 
+	var progressBarToAdd = '<div id="progressBarToRemove" class="progress"><div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div></div>'
+	var self = this;
 	var stop;
 
 	this.showGame = function(game) {
@@ -33,8 +35,16 @@ module.exports = function($scope, $state, $timeout, gamesFactory, gameService, r
 		var maxPlayers = $("#maxPlayers").val();
 		if(minPlayers != "" && maxPlayers != "" && minPlayers > 1 && minPlayers < 33 && maxPlayers > 0 && maxPlayers < 33 && maxPlayers > minPlayers){
 			//Implementeer success (Alle gegevens zijn goed )
-			gamesFactory.createGame(this.gameType, minPlayers, maxPlayers, this);
-			
+			$("#addProgressBarHere").append(progressBarToAdd)
+			this.creatingGame = true
+			gamesFactory.createGame(this.gameType, minPlayers, maxPlayers, function(newGame){
+				self.games.push(newGame);
+				$("#progressBarToRemove").remove()
+				swal({ title: "Game created!", text: "The game is added to 'My games'", type: "success", confirmButtonText: "Cool!" }, function(){
+					self.creatingGame = false
+					self.goToOwnedGames();
+				});
+			});
 		} else {
 			$("#alertToRemove").remove()
 			$("#createGame").append('<div id="alertToRemove" class="alert alert-danger myAlert" role="alert">De game voldoet niet aan een van deze eisen: </br> minPlayers != undefined && maxPlayers != undefined && minPlayers > 0 && minPlayers < 32 && maxPlayers > 0 && maxPlayers < 33 && maxPlayers > minPlayers</div>')
@@ -60,8 +70,26 @@ module.exports = function($scope, $state, $timeout, gamesFactory, gameService, r
 		}
 	};
 
-	this.addPlayer = function(game) {
-		game.players.push(this.user);
+	this.joinGame = function(game) {
+		swal({   
+			title: "Joining game!",   
+			text: progressBarToAdd,   
+			html: true,
+			showConfirmButton: false });
+
+		gamesFactory.joinGame(game._id, function(data){
+			console.log(data)
+			for (var i in self.games) {
+		     if (self.games[i]._id == data._id) {
+		        self.games[i] = data;
+		        break; //Stop this loop, we found it!
+		     }
+		   }
+			swal.close();
+			window.setTimeout(function(){
+				swal({ title: "Game joined!", text: "You have successfully joined the game!'", type: "success", confirmButtonText: "Cool!"});
+			}, 1000)
+		});
 	};
 
 	this.isOwnedGame = function(game){
@@ -77,12 +105,6 @@ module.exports = function($scope, $state, $timeout, gamesFactory, gameService, r
 			}
 			return found;
 		}
-	}
-
-	this.receiveGame = function(newGame){
-		console.log(newGame);
-		this.games.push(newGame);
-		this.goToOwnedGames();
 	}
 
 	this.goToOwnedGames = function(){

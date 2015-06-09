@@ -57,7 +57,7 @@ app.config(function($stateProvider, $httpProvider, $urlRouterProvider) {
           setProgressBar("Loading games", 30);
           var deferred = $q.defer();
 
-          gamesFactory.getGames(20, setProgressBar, function(games){
+          gamesFactory.getGames(100, setProgressBar, function(games){
             setProgressBar("Loading games", 100);
             deferred.resolve(games);
           })
@@ -67,15 +67,15 @@ app.config(function($stateProvider, $httpProvider, $urlRouterProvider) {
       }
     })
     .state('home.opengames', {
-      templateUrl: "./views/directives/gamesView/opengames.html",
+      templateUrl: "./views/directives/gamesViews/opengames.html",
     })
     .state('home.playinggames', {
       url: "/playing",
-      templateUrl: "./views/directives/gamesView/playinggames.html"
+      templateUrl: "./views/directives/gamesViews/playinggames.html"
     })
     .state('home.ownedgames', {
       url: "/owned",
-      templateUrl: "./views/directives/gamesView/ownedgames.html",
+      templateUrl: "./views/directives/gamesViews/ownedgames.html",
     })
     .state('game', {
       url: "/game",
@@ -115,14 +115,14 @@ app.directive('tile', function() {
 app.directive('game', function() {
   return {
     restrict: 'E',
-    templateUrl: './views/directives/game.html',
+    templateUrl: './views/directives/gamesViews/game.html',
   }
 });
 
 app.directive('creategame', function() {
   return {
     restrict: 'E',
-    templateUrl: './views/directives/gamesView/creategame.html',
+    templateUrl: './views/directives/gamesViews/creategame.html',
   }
 });
 
