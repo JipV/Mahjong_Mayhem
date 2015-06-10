@@ -6,6 +6,7 @@ module.exports = function($scope, $state, $timeout, gamesFactory, gameService, r
 	};
 
 	this.activeTab = "open"
+	this.confirmButtonColor = "#337ab7"
 
 	this.gameType = "Shanghai";
 
@@ -33,28 +34,22 @@ module.exports = function($scope, $state, $timeout, gamesFactory, gameService, r
 	this.createGame = function() {
 		var minPlayers = $("#minPlayers").val();
 		var maxPlayers = $("#maxPlayers").val();
-		if(minPlayers != "" && maxPlayers != "" && minPlayers > 1 && minPlayers < 33 && maxPlayers > 0 && maxPlayers < 33 && maxPlayers > minPlayers){
+		if(minPlayers != "" && maxPlayers != "" && minPlayers > 0 && minPlayers < 33 && maxPlayers > 0 && maxPlayers < 33 && maxPlayers > minPlayers){
 			//Implementeer success (Alle gegevens zijn goed )
 			$("#addProgressBarHere").append(progressBarToAdd)
 			this.creatingGame = true
-			/*gamesFactory.createGame(this.gameType, minPlayers, maxPlayers, function(newGame){
+			gamesFactory.createGame(this.gameType, minPlayers, maxPlayers, function(newGame){
 				self.games.push(newGame);
 				$("#progressBarToRemove").remove()
-				swal({ title: "Game created!", text: "The game is added to 'My games'", type: "success", confirmButtonText: "Cool!" }, function(){
+				swal({ title: "Game created!", text: "The game is added to 'My games'", type: "success", confirmButtonText: "Cool!", 
+					confirmButtonColor: self.confirmButtonColor }, function(){
 					self.creatingGame = false
 					self.goToOwnedGames();
 				});
-			});*/
-			gamesFactory.timeout(function(){
-				$("#progressBarToRemove").remove()
-				swal({ title: "Game created!", text: "The game is added to 'My games'", type: "success", confirmButtonText: "Cool!" }, function(){
-					self.creatingGame = false
-					self.goToOwnedGames();
-				});
-			})
+			});
 		} else {
 			$("#alertToRemove").remove()
-			$("#createGame").append('<div id="alertToRemove" class="alert alert-danger myAlert" role="alert">De game voldoet niet aan een van deze eisen: </br> minPlayers != undefined && maxPlayers != undefined && minPlayers > 0 && minPlayers < 32 && maxPlayers > 0 && maxPlayers < 33 && maxPlayers > minPlayers</div>')
+			$("#createGame").append('<div id="alertToRemove" class="alert alert-danger myAlert" role="alert">De game voldoet niet aan een van deze eisen: </br> minPlayers != undefined && maxPlayers != undefined && minPlayers > 1 && minPlayers < 32 && maxPlayers > 0 && maxPlayers < 33 && maxPlayers > minPlayers</div>')
 			$(".myAlert").dequeue();
 			$(".myAlert").css("opacity", 0);
 			$(".myAlert").clearQueue();
@@ -85,7 +80,6 @@ module.exports = function($scope, $state, $timeout, gamesFactory, gameService, r
 			showConfirmButton: false });
 
 		gamesFactory.joinGame(game._id, function(data){
-			console.log(data)
 			for (var i in self.games) {
 		     if (self.games[i]._id == data._id) {
 		        self.games[i] = data;
@@ -94,8 +88,9 @@ module.exports = function($scope, $state, $timeout, gamesFactory, gameService, r
 		   }
 			swal.close();
 			window.setTimeout(function(){
-				swal({ title: game.createdBy.name + "'s game joined!", text: "You have successfully joined " +  game.createdBy.name + "'s game!'", type: "success", confirmButtonText: "Cool!"});
-			}, 600)
+				swal({ title: game.createdBy.name + "'s game joined!", text: "You have successfully joined " +  game.createdBy.name + "'s game!'", type: "success", confirmButtonText: "Cool!", 
+					confirmButtonColor: self.confirmButtonColor});
+			}, 400)
 		});
 	};
 
@@ -107,17 +102,18 @@ module.exports = function($scope, $state, $timeout, gamesFactory, gameService, r
 			showConfirmButton: false });
 
 		gamesFactory.startGame(game._id, function(data){
-			console.log(data)
 			for (var i in self.games) {
-		     	if (self.games[i]._id == data._id) {
-		        	self.games[i] = data;
+		     	if (self.games[i]._id == game._id) {
+		        	self.games[i].state = "playing";
 		        	break;
 		     	}
 		   	}
 			swal.close();
 			window.setTimeout(function(){
-				swal({ title: "Game started!", text: "You have successfully started your game!'", type: "success", confirmButtonText: "Cool!"});
-			}, 600)
+				swal({ title: "Game started!", text: "You have successfully started your game!'", type: "success", 
+					confirmButtonText: "Cool!", 
+					confirmButtonColor: self.confirmButtonColor});
+			}, 400)
 		});
 	};
 
