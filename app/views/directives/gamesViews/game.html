@@ -9,6 +9,10 @@
 		<text ng-repeat="player in game.players"> {{ player.name }} 
 			{{ $index != game.players.length - 1 && game.players.length > 1 ? "-" : "" }}
 		</text></span></p>
-	<p><button ng-show="game.state == 'open' && !gamesController.hasPlayer(game, gamesController.user)
-		&& game.maxPlayers != game.players.length && game.players.length < game.maxPlayers" ng-click="gamesController.joinGame(game)" class="btn btn-danger">Join game</button></p>
+	<p>
+		<button ng-show="game.state == 'open' && !gamesController.hasPlayer(game, gamesController.user)
+		&& game.maxPlayers != game.players.length && game.players.length < game.maxPlayers" ng-click="gamesController.joinGame(game)" class="btn btn-danger">Join game</button>
+		<button ng-show="gamesController.isSelfCreatedGame(game)
+		&& game.minPlayers <= game.players.length && game.state == 'open'" ng-click="gamesController.startGame(game)" class="btn btn-danger">Start game</button>
+	</p>
 </h3>

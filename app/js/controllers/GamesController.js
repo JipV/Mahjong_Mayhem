@@ -37,14 +37,21 @@ module.exports = function($scope, $state, $timeout, gamesFactory, gameService, r
 			//Implementeer success (Alle gegevens zijn goed )
 			$("#addProgressBarHere").append(progressBarToAdd)
 			this.creatingGame = true
-			gamesFactory.createGame(this.gameType, minPlayers, maxPlayers, function(newGame){
+			/*gamesFactory.createGame(this.gameType, minPlayers, maxPlayers, function(newGame){
 				self.games.push(newGame);
 				$("#progressBarToRemove").remove()
 				swal({ title: "Game created!", text: "The game is added to 'My games'", type: "success", confirmButtonText: "Cool!" }, function(){
 					self.creatingGame = false
 					self.goToOwnedGames();
 				});
-			});
+			});*/
+			gamesFactory.timeout(function(){
+				$("#progressBarToRemove").remove()
+				swal({ title: "Game created!", text: "The game is added to 'My games'", type: "success", confirmButtonText: "Cool!" }, function(){
+					self.creatingGame = false
+					self.goToOwnedGames();
+				});
+			})
 		} else {
 			$("#alertToRemove").remove()
 			$("#createGame").append('<div id="alertToRemove" class="alert alert-danger myAlert" role="alert">De game voldoet niet aan een van deze eisen: </br> minPlayers != undefined && maxPlayers != undefined && minPlayers > 0 && minPlayers < 32 && maxPlayers > 0 && maxPlayers < 33 && maxPlayers > minPlayers</div>')
@@ -82,13 +89,35 @@ module.exports = function($scope, $state, $timeout, gamesFactory, gameService, r
 			for (var i in self.games) {
 		     if (self.games[i]._id == data._id) {
 		        self.games[i] = data;
-		        break; //Stop this loop, we found it!
+		        break;
 		     }
 		   }
 			swal.close();
 			window.setTimeout(function(){
 				swal({ title: game.createdBy.name + "'s game joined!", text: "You have successfully joined " +  game.createdBy.name + "'s game!'", type: "success", confirmButtonText: "Cool!"});
-			}, 1000)
+			}, 600)
+		});
+	};
+
+	this.startGame = function(game) {
+		swal({   
+			title: "Starting game!",   
+			text: progressBarToAdd,   
+			html: true,
+			showConfirmButton: false });
+
+		gamesFactory.startGame(game._id, function(data){
+			console.log(data)
+			for (var i in self.games) {
+		     	if (self.games[i]._id == data._id) {
+		        	self.games[i] = data;
+		        	break;
+		     	}
+		   	}
+			swal.close();
+			window.setTimeout(function(){
+				swal({ title: "Game started!", text: "You have successfully started your game!'", type: "success", confirmButtonText: "Cool!"});
+			}, 600)
 		});
 	};
 
@@ -105,6 +134,10 @@ module.exports = function($scope, $state, $timeout, gamesFactory, gameService, r
 			}
 			return found;
 		}
+	}
+
+	this.isSelfCreatedGame = function(game){
+		return this.user._id == game.createdBy._id;
 	}
 
 	this.goToOwnedGames = function(){

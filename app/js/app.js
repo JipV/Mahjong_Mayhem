@@ -28,11 +28,13 @@ app.service("gameService", gameService);
 var gamesController = require("./controllers/GamesController");
 var gameController = require("./controllers/GameController");
 var loginController = require("./controllers/LoginController");
+var userController = require("./controllers/UserController");
 var callbackController = require("./controllers/CallbackController");
 
 app.controller("GamesController", gamesController);
 app.controller("GameController", gameController);
 app.controller("loginController", loginController);
+app.controller("UserController", userController);
 app.controller("callbackController", callbackController)
 
 //Models
@@ -123,6 +125,14 @@ app.directive('creategame', function() {
   return {
     restrict: 'E',
     templateUrl: './views/directives/gamesViews/creategame.html',
+  }
+});
+
+app.directive('user', function(){
+  return {
+    restrict: 'E',
+    templateUrl:'./views/directives/user.html',
+    controller: "UserController as uc"
   }
 });
 

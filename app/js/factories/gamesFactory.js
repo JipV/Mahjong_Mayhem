@@ -15,7 +15,7 @@ module.exports = function($http, urlFactory) {
 
     gamesFactory.timeout = function(callBack){
         window.setTimeout(function(){
-            callBack()
+            callBack();
         }, 5000)
     }
 
@@ -30,6 +30,15 @@ module.exports = function($http, urlFactory) {
 
     gamesFactory.joinGame = function(game_id, callBack){
         return $http.post(urlFactory + urlBase + "/" + game_id + "/Players").
+        success(function(data, status, headers, config){
+            callBack(data);
+        }).error(function(data, status, headers, config){
+            console.log(data);
+        });
+    }
+
+    gamesFactory.startGame = function(game_id, callBack){
+        return $http.post(urlFactory + urlBase + "/" + game_id + "/Start").
         success(function(data, status, headers, config){
             callBack(data);
         }).error(function(data, status, headers, config){
