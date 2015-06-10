@@ -1,12 +1,13 @@
 module.exports = function(gamesFactory, idGame) {
 	this.gamesFactory = gamesFactory;
+	this.id = idGame;
 	this.tiles;
 	this.freeTiles = [];
 	
 	var self = this
 	
 	this.getTiles = function() {
-		this.gamesFactory.getTiles(idGame, function(tiles){
+		this.gamesFactory.getTiles(this.id, function(tiles){
 			self.tiles = tiles;
 			//console.log(self.matchesLeft());
 		});
@@ -68,7 +69,16 @@ module.exports = function(gamesFactory, idGame) {
 	}
 
 	this.addMatch = function(idTile1, idTile2){
-		this.gamesFactory.addMatch(idGame, idTile1, idTile2, function(tiles){
+		console.log("Test1");
+		this.gamesFactory.addMatch(this.id, idTile1, idTile2, function(tiles){
+			
+			// Haalt gematchte tegels uit "tiles"
+			/*this.tiles = this.tiles.filter(function(jsonObject) {
+			    return jsonObject.id != idTile1 && jsonObject.id != idTile2;
+			});*/
+
+			this.tiles = tiles;
+
 			console.log("Tegels zijn nu gematched.");
 		});
 	}
