@@ -3,7 +3,6 @@ module.exports = function($scope, gamesFactory, gameService) {
 	var Game = require("./../models/game");
 	this.game = new Game(gamesFactory, gameService.getGame()._id);
 	this.game.getTiles();
-	
 
 	
 	/*var io = require("socket.io");

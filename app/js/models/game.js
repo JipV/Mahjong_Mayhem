@@ -2,7 +2,7 @@ module.exports = function(gamesFactory, idGame) {
 	this.gamesFactory = gamesFactory;
 	this.id = idGame;
 	this.tiles;
-	this.matchedTiles;
+	this.matchedTiles = [];
 	this.freeTiles = [];
 	
 	var self = this
@@ -74,9 +74,9 @@ module.exports = function(gamesFactory, idGame) {
 	}
 
 	this.addMatch = function(idTile1, idTile2){
-		self.gamesFactory.addMatch(self.id, idTile1, idTile2, function(matchedTiles){
-			var matchedTile1 = matchedTiles[0];
-			var matchedTile2 = matchedTiles[1];
+		self.gamesFactory.addMatch(self.id, idTile1, idTile2, function(twoTiles){
+			var matchedTile1 = twoTiles[0];
+			var matchedTile2 = twoTiles[1];
 			//console.log(matchedTile1);
 			//console.log(matchedTile2);
 			for(var x = 0; x < self.tiles.length; x++){
@@ -85,6 +85,8 @@ module.exports = function(gamesFactory, idGame) {
 					self.tiles.splice(x, 1);
 				}
 			}
+			self.matchedTiles.push(matchedTile1);
+			self.matchedTiles.push(matchedTile2);
 		});
 	}
 	
