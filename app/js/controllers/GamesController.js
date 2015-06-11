@@ -95,6 +95,7 @@ module.exports = function($scope, $state, $timeout, gamesFactory, gameService, r
 	};
 
 	this.startGame = function(game) {
+		
 		swal({   
 			title: "Starting game!",   
 			text: progressBarToAdd,   
@@ -110,9 +111,25 @@ module.exports = function($scope, $state, $timeout, gamesFactory, gameService, r
 		   	}
 			swal.close();
 			window.setTimeout(function(){
-				swal({ title: "Game started!", text: "You have successfully started your game!'", type: "success", 
-					confirmButtonText: "Cool!", 
-					confirmButtonColor: self.confirmButtonColor});
+				swal({   
+					title: "Game started!",   
+					text: "You have successfully started your game!",   
+					type: "success",   
+					showCancelButton: true,   
+					confirmButtonColor: self.confirmButtonColor,   
+					confirmButtonText: "Go to game!",   
+					cancelButtonText: "Cool!",   
+					closeOnConfirm: true,   
+					closeOnCancel: true }, function(isConfirm){   
+						if (isConfirm) {     
+							for (var i in self.games) {
+						     	if (self.games[i]._id == game._id) {
+						        	self.showGame(self.games[i])
+						        	break;
+						     	}
+						   	} 
+						}
+					});
 			}, 400)
 		});
 	};
