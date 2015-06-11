@@ -67,6 +67,16 @@ module.exports = function($http, urlFactory) {
 		});
     };
 
+    gamesFactory.getMatchedTiles = function (id, callBack) {
+        return $http.get(urlFactory + urlBase + '/' + id + '/Tiles/matches').
+        success(function(data, status, headers, config) {
+            callBack(data);
+        }).
+        error(function(data, status, headers, config){
+            console.log(data);
+        });
+    };
+
     gamesFactory.addMatch = function (idGame, idTile1, idTile2, callBack) {
         console.log("HALLO 2");
         return $http.post(urlFactory + urlBase + '/' + idGame + '/Tiles/matches', {tile1Id: idTile1, tile2Id: idTile2}).
