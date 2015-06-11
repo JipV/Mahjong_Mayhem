@@ -73,7 +73,7 @@ module.exports = function($scope, gamesFactory, gameService) {
 
 	this.playerHasMatch = function(tile1, tile2) {
 		
-console.log("Test0");
+	console.log("Test0");
 
 		this.game.addMatch(tile1._id, tile2._id);
 	}

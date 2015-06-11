@@ -70,14 +70,18 @@ module.exports = function(gamesFactory, idGame) {
 
 	this.addMatch = function(idTile1, idTile2){
 		console.log("Test1");
-		this.gamesFactory.addMatch(this.id, idTile1, idTile2, function(tiles){
-			
-			// Haalt gematchte tegels uit "tiles"
-			/*this.tiles = this.tiles.filter(function(jsonObject) {
-			    return jsonObject.id != idTile1 && jsonObject.id != idTile2;
-			});*/
-
-			this.tiles = tiles;
+		self.gamesFactory.addMatch(self.id, idTile1, idTile2, function(matchedTiles){
+			var matchedTile1 = matchedTiles[0];
+			var matchedTile2 = matchedTiles[1];
+			console.log(matchedTile1);
+			console.log(matchedTile2);
+			console.log("HALLOOOOO");
+			for(var x = 0; x < self.tiles.length; x++){
+				if(self.tiles[x]._id == matchedTile1._id || self.tiles[x]._id == matchedTile2._id){
+					console.log("Splicing tile: " + self.tiles[x]._id)
+					self.tiles.splice(x, 1);
+				}
+			}
 
 			console.log("Tegels zijn nu gematched.");
 		});

@@ -57,8 +57,9 @@ module.exports = function($http, urlFactory) {
     };
 
     gamesFactory.getTiles = function (id, callBack) {
-        return $http.get(urlFactory + urlBase + '/' + id + '/tiles').
+        return $http.get(urlFactory + urlBase + '/' + id + '/Tiles/?matched=false').
 		success(function(data, status, headers, config) {
+            
 			callBack(data);
 		}).
 		error(function(data, status, headers, config){
@@ -67,9 +68,11 @@ module.exports = function($http, urlFactory) {
     };
 
     gamesFactory.addMatch = function (idGame, idTile1, idTile2, callBack) {
-        console.log("Test2");
-        return $http.post(urlFactory + urlBase + '/' + idGame + '/tiles/matches', {tile1Id: idTile1, tile2Id: idTile2}).
+        console.log("HALLO 2");
+        return $http.post(urlFactory + urlBase + '/' + idGame + '/Tiles/matches', {tile1Id: idTile1, tile2Id: idTile2}).
 		success(function(data, status, headers, config) {
+            console.log("HALLO 1");
+            console.log(data)
 			callBack(data);
 		}).
 		error(function(data, status, headers, config){
